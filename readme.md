@@ -86,6 +86,8 @@ StreamDex will consist of the following controller classes:
 - `CurrentLiveStreamersController` will primarily control screen #1, and will hold an instance of the `CurrentLiveStreamers` class which will be used to render the list of currently live streamers
 - `FavoriteStreamersController` will primarily control screens 2 and 3, and will hold an instance of the `FavoriteStreamers` class which will be used to render and edit the list of favorite streamers
 
+![StreamDex Controllers](./docs/diagrams/controllers.png)
+
 The `FavoriteStreamersController` class contains the `addStreamer`, `removeStreamer`, and `clearStreamers` methods. These
 methods will call the relevant methods in the `FavoriteStreamers` class, which will handle updating the
 model in memory as well as storing the persistent data in device storage.
