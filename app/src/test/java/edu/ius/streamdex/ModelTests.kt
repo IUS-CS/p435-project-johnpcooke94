@@ -22,7 +22,7 @@ class ModelTests {
     @Test
     fun testAddFavoriteStreamer() {
         favoriteStreamers.clearAllStreamers()
-        val newStreamer= Streamer(
+        val newStreamer = Streamer(
             "xx_test_xx",
             "www.youtube.com/test",
             false,
