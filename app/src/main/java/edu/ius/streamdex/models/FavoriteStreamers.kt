@@ -20,4 +20,8 @@ class FavoriteStreamers {
         _favoriteStreamers.remove(streamerToRemove)
     }
 
+    fun clearAllStreamers() {
+        _favoriteStreamers.clear()
+    }
+
 }
