@@ -17,7 +17,7 @@ class CurrentLiveStreamers {
         _liveStreamers.add(streamer)
     }
 
-    fun addStreamers(streamers: List<Streamer>) {
+    fun addStreamer(streamers: List<Streamer>) {
         streamers.forEach { _liveStreamers.add(it) }
     }
 

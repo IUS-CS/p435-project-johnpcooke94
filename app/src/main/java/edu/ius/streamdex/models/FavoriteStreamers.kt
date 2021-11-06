@@ -11,7 +11,7 @@ class FavoriteStreamers {
         _favoriteStreamers.add(streamer)
     }
 
-    fun addStreamers(streamers: List<Streamer>) {
+    fun addStreamer(streamers: List<Streamer>) {
         streamers.forEach { _favoriteStreamers.add(it) }
     }
 
