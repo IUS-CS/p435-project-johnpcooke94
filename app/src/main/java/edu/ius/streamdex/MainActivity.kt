@@ -11,22 +11,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val favoriteStreamers = FavoriteStreamers()
-        favoriteStreamers.addStreamer(
-            Streamer(
-            "xx_test_xx",
-            "www.youtube.com/test",
-            false,
-            "trying out Valorant XD"
-            )
-        )
-
-        val streamerToDisplay = favoriteStreamers.favoriteStreamers[0]
-
-        val mainTextView = findViewById<TextView>(R.id.mainTextView)
-        mainTextView.text = "${streamerToDisplay.name}\n" +
-                            "${streamerToDisplay.currentStream}\n" +
-                            "${streamerToDisplay.currentlyLive}"
+        val isFragmentContainerEmpty = savedInstanceState == null
+        if (isFragmentContainerEmpty) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_container, StreamFragment.newInstance(1))
+                .commit()
+        }
 
     }
 }
