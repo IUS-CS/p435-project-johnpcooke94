@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import edu.ius.streamdex.controllers.StreamListController
-import edu.ius.streamdex.placeholder.PlaceholderContent
 
 /**
  * A fragment representing a list of Items.
@@ -47,10 +46,8 @@ class StreamFragment : Fragment() {
 
     companion object {
 
-        // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
 
-        // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
             StreamFragment().apply {

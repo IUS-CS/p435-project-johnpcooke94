@@ -1,6 +1,5 @@
 package edu.ius.streamdex.models
 
-import java.lang.Exception
 import java.lang.RuntimeException
 
 class CurrentLiveStreamers {

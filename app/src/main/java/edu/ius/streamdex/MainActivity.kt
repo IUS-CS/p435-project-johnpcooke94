@@ -2,9 +2,6 @@ package edu.ius.streamdex
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import edu.ius.streamdex.models.FavoriteStreamers
-import edu.ius.streamdex.models.Streamer
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

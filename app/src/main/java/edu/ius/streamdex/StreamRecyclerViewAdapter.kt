@@ -2,18 +2,13 @@ package edu.ius.streamdex
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-import edu.ius.streamdex.placeholder.PlaceholderContent.PlaceholderItem
 import edu.ius.streamdex.databinding.FragmentStreamBinding
 import edu.ius.streamdex.models.Stream
 
-/**
- * [RecyclerView.Adapter] that can display a [PlaceholderItem].
- * TODO: Replace the implementation with code for your data type.
- */
+
 class StreamRecyclerViewAdapter(
     private val values: List<Stream>
 ) : RecyclerView.Adapter<StreamRecyclerViewAdapter.ViewHolder>() {
