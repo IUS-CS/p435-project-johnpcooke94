@@ -3,7 +3,6 @@ package edu.ius.streamdex.api
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import edu.ius.streamdex.BuildConfig
-import edu.ius.streamdex.models.CurrentLiveStreamers
 import okhttp3.Headers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -17,13 +16,13 @@ const val TAG = "STREAM_REPO"
 
 class StreamRepository {
 
-    private class AuthInterceptor(client_id: String, auth_token: String): Interceptor {
+    private class AuthInterceptor(clientId: String, authToken: String): Interceptor {
 
         private val headers = Headers.Builder()
 
         init {
-            headers.add("Authorization", auth_token)
-            headers.add("Client-Id", client_id)
+            headers.add("Authorization", authToken)
+            headers.add("Client-Id", clientId)
         }
 
         override fun intercept(chain: Interceptor.Chain): Response {

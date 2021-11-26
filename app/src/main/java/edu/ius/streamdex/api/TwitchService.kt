@@ -6,5 +6,5 @@ import retrofit2.http.Query
 
 interface TwitchService {
     @GET("streams/")
-    fun getStream(@Query("user_login")user_login: String?): Call<StreamResponse>
+    fun getStream(@Query("user_login")userLogin: String?): Call<StreamResponse>
 }
