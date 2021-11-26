@@ -27,7 +27,10 @@ class StreamRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val stream = values[position]
-        holder.idView.text = stream.link
+        holder.idView.text = when {
+            stream.live -> "Live!"
+            else -> "Not live"
+        }
         holder.contentView.text = stream.title
     }
 
