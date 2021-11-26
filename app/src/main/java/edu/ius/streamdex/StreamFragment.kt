@@ -11,11 +11,12 @@ import android.view.ViewGroup
 import edu.ius.streamdex.controllers.StreamListController
 
 /**
- * A fragment representing a list of Items.
+ * A fragment representing a list of Streams.
  */
 class StreamFragment : Fragment() {
 
     private var columnCount = 1
+    private val listController = StreamListController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class StreamFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_stream_list, container, false)
+        val owner = this
 
         // Set the adapter
         if (view is RecyclerView) {
@@ -38,7 +40,7 @@ class StreamFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = StreamRecyclerViewAdapter(StreamListController().streamList)
+                listController.populateLiveStreams(owner, this)
             }
         }
         return view
