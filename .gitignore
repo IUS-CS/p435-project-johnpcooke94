@@ -437,5 +437,5 @@ Thumbs.db
 .externalNativeBuild
 .cxx
 local.properties
-twitch_auth.txt
+twitch_auth.properties
 

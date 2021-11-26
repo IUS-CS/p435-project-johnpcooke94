@@ -2,6 +2,7 @@ package edu.ius.streamdex.api
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import edu.ius.streamdex.BuildConfig
 import edu.ius.streamdex.models.CurrentLiveStreamers
 import okhttp3.Headers
 import okhttp3.Interceptor
@@ -40,8 +41,8 @@ class StreamRepository {
 
             // CLIENT ID AND AUTH TOKEN MUST GO HERE
             val authInterceptor = AuthInterceptor(
-                "client_id",
-                "Bearer auth_token"
+                BuildConfig.TWITCH_CLIENT_ID,
+                "Bearer ${BuildConfig.TWITCH_AUTH_TOKEN}"
                 )
 
             val client = OkHttpClient.Builder()

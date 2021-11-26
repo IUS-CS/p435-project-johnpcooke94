@@ -1,0 +1,4 @@
+# Change these values to valid Twitch authroization info before running the app
+# See Twitch API documentation for details
+client_id="<client_id>"
+auth_token="<auth_token>"
