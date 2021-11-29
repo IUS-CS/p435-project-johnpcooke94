@@ -24,7 +24,7 @@ class StreamListController {
 
     private fun transferResponseToList() {
         streamResponse.forEach {
-            val newStream = Stream(it.title, null, it.type == "live")
+            val newStream = Stream(it.title, it.user_name, null, it.type == "live")
             streamList.add(newStream)
         }
     }
