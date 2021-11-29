@@ -27,21 +27,23 @@ class StreamRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val stream = values[position]
-        holder.idView.text = when {
+        holder.liveStatusView.text = when {
             stream.live -> "Live!"
             else -> "Not live"
         }
-        holder.contentView.text = stream.title
+        holder.streamTitleView.text = stream.title
+        holder.streamerNameView.text = stream.streamer
     }
 
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(binding: FragmentStreamBinding) : RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
+        val liveStatusView: TextView = binding.liveStatus
+        val streamTitleView: TextView = binding.streamTitle
+        val streamerNameView: TextView = binding.streamerName
 
         override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+            return super.toString() + " '" + streamTitleView.text + "'"
         }
     }
 
