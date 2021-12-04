@@ -7,13 +7,14 @@ import android.widget.TextView
 
 import edu.ius.streamdex.placeholder.PlaceholderContent.PlaceholderItem
 import edu.ius.streamdex.databinding.FragmentStreamerBinding
+import edu.ius.streamdex.models.Streamer
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
  * TODO: Replace the implementation with code for your data type.
  */
 class FavoriteStreamerRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>
+    private val values: List<Streamer>
 ) : RecyclerView.Adapter<FavoriteStreamerRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,8 +31,8 @@ class FavoriteStreamerRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        holder.idView.text = item.name
+        holder.contentView.text = item.currentStream
     }
 
     override fun getItemCount(): Int = values.size

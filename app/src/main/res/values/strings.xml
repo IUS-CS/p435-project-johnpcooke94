@@ -5,4 +5,5 @@
     <string name="streamer_name_default">Unable to load streamer name</string>
     <string name="menu_home">Home</string>
     <string name="streamer_list">Streamers</string>
+    <string name="add_streamers">You have not added any streamers to track yet!</string>
 </resources>

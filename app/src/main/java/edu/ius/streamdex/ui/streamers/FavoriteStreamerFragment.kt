@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import edu.ius.streamdex.R
+import edu.ius.streamdex.controllers.StreamerController
 import edu.ius.streamdex.placeholder.PlaceholderContent
 
 /**
@@ -17,6 +18,7 @@ import edu.ius.streamdex.placeholder.PlaceholderContent
 class FavoriteStreamerFragment : Fragment() {
 
     private var columnCount = 1
+    private val listController = StreamerController()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,16 +32,24 @@ class FavoriteStreamerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_streamer_list, container, false)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
+        lateinit var view: View
+
+        if (listController.streamerList.isEmpty()) {
+            view = inflater.inflate(R.layout.textview_add_streamers, container, false)
+        }
+        else {
+            view = inflater.inflate(R.layout.fragment_streamer_list, container, false)
+
+            // Set the adapter
+            if (view is RecyclerView) {
+                with(view) {
+                    layoutManager = when {
+                        columnCount <= 1 -> LinearLayoutManager(context)
+                        else -> GridLayoutManager(context, columnCount)
+                    }
+                    adapter = FavoriteStreamerRecyclerViewAdapter(listController.streamerList)
                 }
-                adapter = FavoriteStreamerRecyclerViewAdapter(PlaceholderContent.ITEMS)
             }
         }
         return view
