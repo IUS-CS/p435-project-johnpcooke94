@@ -2,7 +2,7 @@ package edu.ius.streamdex.controllers
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import edu.ius.streamdex.StreamRecyclerViewAdapter
+import edu.ius.streamdex.ui.home.StreamRecyclerViewAdapter
 import edu.ius.streamdex.api.StreamRepository
 import edu.ius.streamdex.api.TwitchStream
 import edu.ius.streamdex.models.Stream

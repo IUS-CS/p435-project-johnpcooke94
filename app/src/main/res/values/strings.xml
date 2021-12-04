@@ -3,4 +3,6 @@
     <string name="live_status_default">Error</string>
     <string name="stream_title_default">Unable to load stream title</string>
     <string name="streamer_name_default">Unable to load streamer name</string>
+    <string name="menu_home">Home</string>
+    <string name="streamer_list">Streamers</string>
 </resources>
