@@ -87,6 +87,33 @@ class StreamRepository {
             return ret
         }
 
+        fun getStreamers(username: String): MutableLiveData<StreamerResponse> {
+            val ret = MutableLiveData<StreamerResponse>()
+
+            api.getUser(username).enqueue(object: Callback<StreamerResponse> {
+
+                override fun onResponse(
+                    call: Call<StreamerResponse>,
+                    response: retrofit2.Response<StreamerResponse>
+                ) {
+                    if (!response.isSuccessful) {
+                        Log.e(TAG, "Twitch API response error: ${response.body()}")
+                        ret.postValue(null)
+                    }
+                    val streamerList = response.body()
+                    ret.postValue(streamerList)
+                }
+
+                override fun onFailure(call: Call<StreamerResponse>, t: Throwable) {
+                    Log.e(TAG, "Unable to reach Twitch API")
+                    Log.e(TAG, t.localizedMessage)
+                }
+
+            })
+
+            return ret
+        }
+
     }
 
 }
