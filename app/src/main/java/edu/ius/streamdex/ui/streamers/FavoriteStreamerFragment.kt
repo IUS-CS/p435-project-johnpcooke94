@@ -47,12 +47,9 @@ class FavoriteStreamerFragment : Fragment() {
     ): View? {
 
         val owner = this
-        lateinit var view: View
-
-        view = inflater.inflate(R.layout.fragment_streamer_list, container, false)
+        var view: View = inflater.inflate(R.layout.fragment_streamer_list, container, false)
 
         streamerRecyclerView = view.findViewById(R.id.streamer_list)
-
         listController.populateLiveStreamers(owner)
 
         return view
