@@ -11,10 +11,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.RuntimeException
 
 const val TAG = "STREAM_REPO"
 
-class StreamRepository {
+class TwitchRepository {
 
     private class AuthInterceptor(clientId: String, authToken: String): Interceptor {
 
@@ -70,7 +71,7 @@ class StreamRepository {
                     response: retrofit2.Response<StreamResponse>
                 ) {
                     if (!response.isSuccessful) {
-                        Log.e(TAG, "Twitch API response error: ${response.body()}")
+                        Log.e(TAG, "Twitch API response error ${response.code()}: ${response.errorBody()}")
                         ret.postValue(null)
                     }
                     val streamList = response.body()
@@ -97,7 +98,7 @@ class StreamRepository {
                     response: retrofit2.Response<StreamerResponse>
                 ) {
                     if (!response.isSuccessful) {
-                        Log.e(TAG, "Twitch API response error: ${response.body()}")
+                        Log.e(TAG, "Twitch API response error ${response.code()}: ${response.errorBody()}")
                         ret.postValue(null)
                     }
                     val streamerList = response.body()

@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import com.google.android.material.snackbar.Snackbar
 import edu.ius.streamdex.R
+import edu.ius.streamdex.api.TwitchRepository
 
 private val TAG = "ADD_STREAMER"
 
@@ -44,8 +46,19 @@ class AddStreamerFragment : Fragment() {
         val button = view.findViewById<Button>(R.id.add_button)
 
         button.setOnClickListener {
-            val linkInput = view.findViewById<EditText>(R.id.editText).text
-            Log.d(TAG, linkInput.toString())
+            val usernameInput = view.findViewById<EditText>(R.id.editText).text
+            TwitchRepository.getStreamers(usernameInput.toString()).observe(viewLifecycleOwner, {streamer ->
+                if (streamer != null && streamer.data.isNotEmpty()) {
+                    // TODO: the API request is always returning 400 for some reason
+                    Snackbar.make(view, "User found", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                }
+                else {
+                    Snackbar.make(view, "Could not find that Twitch user, check the name and try again",
+                        Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                }
+            })
         }
 
         return view
