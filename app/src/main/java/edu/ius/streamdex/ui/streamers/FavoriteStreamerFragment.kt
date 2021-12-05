@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import edu.ius.streamdex.R
 import edu.ius.streamdex.controllers.StreamerController
 import edu.ius.streamdex.models.Streamer
@@ -49,8 +50,15 @@ class FavoriteStreamerFragment : Fragment() {
         val owner = this
         var view: View = inflater.inflate(R.layout.fragment_streamer_list, container, false)
 
-        streamerRecyclerView = view.findViewById(R.id.streamer_list)
+        streamerRecyclerView = view.findViewById(R.id.streamer_recycler)
         listController.populateLiveStreamers(owner)
+
+        val addButton = view.findViewById<FloatingActionButton>(R.id.add_streamer_button)
+        addButton.setOnClickListener {
+            val currentFragment = parentFragmentManager.findFragmentById(R.id.streamer_list)
+            val transaction = parentFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_content_main, AddStreamerFragment())
+            transaction.commit()
+        }
 
         return view
     }
@@ -61,7 +69,7 @@ class FavoriteStreamerFragment : Fragment() {
         val textView = view.findViewById<TextView>(R.id.no_data)
         listController.streamerList.observe(viewLifecycleOwner) {streamers ->
             if (streamers.isNotEmpty()) {
-                updateUI(streamers, view)
+                updateUI(streamers)
                 textView.text = ""
                 Log.d(TAG, "Streamers found in DB")
                 Log.d(TAG, streamers.toString())
@@ -69,7 +77,7 @@ class FavoriteStreamerFragment : Fragment() {
         }
     }
 
-    fun updateUI(streamers: List<Streamer>, view: View) {
+    fun updateUI(streamers: List<Streamer>) {
         adapter = FavoriteStreamerRecyclerViewAdapter(streamers)
         streamerRecyclerView.adapter = adapter
     }

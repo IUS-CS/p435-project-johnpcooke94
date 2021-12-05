@@ -6,4 +6,8 @@
     <string name="menu_home">Home</string>
     <string name="streamer_list">Streamers</string>
     <string name="add_streamers">You have not added any streamers to track yet!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_streamer_prompt">Please enter the link to the streamer\'s channel</string>
+    <string name="finish">Finish</string>
 </resources>
