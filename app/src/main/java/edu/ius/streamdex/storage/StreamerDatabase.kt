@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import edu.ius.streamdex.models.Streamer
 
-@Database(entities = [Streamer::class], version = 1)
+@Database(entities = [Streamer::class], version = 3)
 abstract class StreamerDatabase: RoomDatabase() {
 
     abstract fun streamerDao(): StreamerDao

@@ -1,6 +1,7 @@
 package edu.ius.streamdex.ui.streamers
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,17 +9,29 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import edu.ius.streamdex.R
 import edu.ius.streamdex.controllers.StreamerController
+import edu.ius.streamdex.models.Streamer
 import edu.ius.streamdex.placeholder.PlaceholderContent
+import edu.ius.streamdex.storage.StreamerRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
- * A fragment representing a list of Items.
+ * A fragment representing a list of Streamers.
  */
+
+private val TAG = "STREAMER_FRAGMENT"
+
 class FavoriteStreamerFragment : Fragment() {
 
     private var columnCount = 1
     private val listController = StreamerController()
+    private var adapter = FavoriteStreamerRecyclerViewAdapter(emptyList())
+    private lateinit var streamerRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,26 +46,35 @@ class FavoriteStreamerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val owner = this
         lateinit var view: View
 
-        if (listController.streamerList.isEmpty()) {
-            view = inflater.inflate(R.layout.textview_add_streamers, container, false)
-        }
-        else {
-            view = inflater.inflate(R.layout.fragment_streamer_list, container, false)
+        view = inflater.inflate(R.layout.fragment_streamer_list, container, false)
 
-            // Set the adapter
-            if (view is RecyclerView) {
-                with(view) {
-                    layoutManager = when {
-                        columnCount <= 1 -> LinearLayoutManager(context)
-                        else -> GridLayoutManager(context, columnCount)
-                    }
-                    adapter = FavoriteStreamerRecyclerViewAdapter(listController.streamerList)
-                }
+        streamerRecyclerView = view.findViewById(R.id.streamer_list)
+
+        listController.populateLiveStreamers(owner)
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val textView = view.findViewById<TextView>(R.id.no_data)
+        listController.streamerList.observe(viewLifecycleOwner) {streamers ->
+            if (!streamers.isEmpty()) {
+                updateUI(streamers, view)
+                textView.text = ""
+                Log.d(TAG, "Streamers found in DB")
+                Log.d(TAG, streamers.toString())
             }
         }
-        return view
+    }
+
+    fun updateUI(streamers: List<Streamer>, view: View) {
+        adapter = FavoriteStreamerRecyclerViewAdapter(streamers)
+        streamerRecyclerView.adapter = adapter
     }
 
     companion object {

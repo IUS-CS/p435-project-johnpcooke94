@@ -13,13 +13,20 @@ class StreamerRepository private constructor(context: Context) {
         context.applicationContext,
         StreamerDatabase::class.java,
         DATABASE_NAME
-    ).build()
+    ).fallbackToDestructiveMigration().build()
 
     private val streamerDao = database.streamerDao()
 
     fun getStreamers(): LiveData<List<Streamer>?> = streamerDao.getStreamers()
 
     fun getStreamer(name: String): LiveData<Streamer?> = streamerDao.getStreamer(name)
+
+    suspend fun addStreamers(streamers: List<Streamer>) = streamerDao.addStreamers(streamers)
+
+    suspend fun addStreamers(streamer: Streamer) {
+        val list = listOf<Streamer>(streamer)
+        streamerDao.addStreamers(list)
+    }
 
     companion object {
         private var INSTANCE: StreamerRepository? = null
