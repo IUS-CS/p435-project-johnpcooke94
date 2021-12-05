@@ -1,11 +1,16 @@
 package edu.ius.streamdex.ui.streamers
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import edu.ius.streamdex.R
+
+private val TAG = "ADD_STREAMER"
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,8 +39,16 @@ class AddStreamerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_streamer, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_add_streamer, container, false)
+        val button = view.findViewById<Button>(R.id.add_button)
+
+        button.setOnClickListener {
+            val linkInput = view.findViewById<EditText>(R.id.editText).text
+            Log.d(TAG, linkInput.toString())
+        }
+
+        return view
     }
 
     companion object {

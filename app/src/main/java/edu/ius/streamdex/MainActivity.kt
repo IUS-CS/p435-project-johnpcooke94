@@ -2,7 +2,6 @@ package edu.ius.streamdex
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfig = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_streamers
+                R.id.fragment_home, R.id.fragment_streamers
             ), drawerLayout
         )
 

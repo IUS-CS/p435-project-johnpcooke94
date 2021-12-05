@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/fragment_home">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/fragment_home"
         android:name="edu.ius.streamdex.ui.home.StreamFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_stream_list" />
 
     <fragment
-        android:id="@+id/nav_streamers"
+        android:id="@+id/fragment_streamers"
         android:name="edu.ius.streamdex.ui.streamers.FavoriteStreamerFragment"
         android:label="@string/streamer_list"
         tools:layout="@layout/fragment_streamer_list" />

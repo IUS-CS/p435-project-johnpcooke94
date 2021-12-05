@@ -3,23 +3,15 @@ package edu.ius.streamdex.ui.streamers
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import edu.ius.streamdex.R
 import edu.ius.streamdex.controllers.StreamerController
 import edu.ius.streamdex.models.Streamer
-import edu.ius.streamdex.placeholder.PlaceholderContent
-import edu.ius.streamdex.storage.StreamerRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * A fragment representing a list of Streamers.
@@ -55,8 +47,9 @@ class FavoriteStreamerFragment : Fragment() {
 
         val addButton = view.findViewById<FloatingActionButton>(R.id.add_streamer_button)
         addButton.setOnClickListener {
-            val currentFragment = parentFragmentManager.findFragmentById(R.id.streamer_list)
-            val transaction = parentFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_content_main, AddStreamerFragment())
+            val transaction = parentFragmentManager.beginTransaction().add(R.id.nav_host_fragment_content_main, AddStreamerFragment())
+            transaction.hide(this)
+            transaction.addToBackStack(null)
             transaction.commit()
         }
 
