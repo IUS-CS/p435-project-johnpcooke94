@@ -60,7 +60,7 @@ class FavoriteStreamerFragment : Fragment() {
 
         val textView = view.findViewById<TextView>(R.id.no_data)
         listController.streamerList.observe(viewLifecycleOwner) {streamers ->
-            if (!streamers.isEmpty()) {
+            if (streamers.isNotEmpty()) {
                 updateUI(streamers, view)
                 textView.text = ""
                 Log.d(TAG, "Streamers found in DB")
