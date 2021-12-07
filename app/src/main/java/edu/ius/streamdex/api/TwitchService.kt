@@ -8,6 +8,6 @@ interface TwitchService {
     @GET("streams/")
     fun getStream(@Query("user_login")userLogin: String?): Call<StreamResponse>
 
-    @GET("users/")
-    fun getUser(@Query("user_login")userLogin: String?): Call<StreamerResponse>
+    @GET("search/channels/")
+    fun getUser(@Query("query")userName: String?): Call<StreamerResponse>
 }

@@ -10,7 +10,10 @@ import android.widget.Button
 import android.widget.EditText
 import com.google.android.material.snackbar.Snackbar
 import edu.ius.streamdex.R
+import edu.ius.streamdex.api.StreamerResponse
 import edu.ius.streamdex.api.TwitchRepository
+import edu.ius.streamdex.controllers.StreamerController
+import edu.ius.streamdex.models.Streamer
 
 private val TAG = "ADD_STREAMER"
 
@@ -24,10 +27,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AddStreamerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AddStreamerFragment : Fragment() {
+class AddStreamerFragment(streamerController: StreamerController) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    val controller = streamerController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +51,14 @@ class AddStreamerFragment : Fragment() {
 
         button.setOnClickListener {
             val usernameInput = view.findViewById<EditText>(R.id.editText).text
-            TwitchRepository.getStreamers(usernameInput.toString()).observe(viewLifecycleOwner, {streamer ->
-                if (streamer != null && streamer.data.isNotEmpty()) {
-                    // TODO: the API request is always returning 400 for some reason
-                    Snackbar.make(view, "User found", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()
+            TwitchRepository.getStreamers(usernameInput.toString()).observe(viewLifecycleOwner, {twitchUsers ->
+                if (twitchUsers != null && twitchUsers.data.isNotEmpty()) {
+                    twitchUsers.data.forEach {
+                        if (it.display_name.contentEquals(usernameInput, true)) {
+                            controller.addStreamer(Streamer(it.display_name, "", it.is_live, it.title))
+                            parentFragmentManager.popBackStack()
+                        }
+                    }
                 }
                 else {
                     Snackbar.make(view, "Could not find that Twitch user, check the name and try again",
@@ -64,15 +71,15 @@ class AddStreamerFragment : Fragment() {
         return view
     }
 
-    companion object {
-        /**
+/*    companion object {
+        *//**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
          * @return A new instance of fragment AddStreamerFragment.
-         */
+         *//*
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
@@ -82,5 +89,5 @@ class AddStreamerFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
-    }
+    }*/
 }

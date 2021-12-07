@@ -22,7 +22,7 @@ private val TAG = "STREAMER_FRAGMENT"
 class FavoriteStreamerFragment : Fragment() {
 
     private var columnCount = 1
-    private val listController = StreamerController()
+    private val listController = StreamerController(this)
     private var adapter = FavoriteStreamerRecyclerViewAdapter(emptyList())
     private lateinit var streamerRecyclerView: RecyclerView
 
@@ -47,7 +47,7 @@ class FavoriteStreamerFragment : Fragment() {
 
         val addButton = view.findViewById<FloatingActionButton>(R.id.add_streamer_button)
         addButton.setOnClickListener {
-            val transaction = parentFragmentManager.beginTransaction().add(R.id.nav_host_fragment_content_main, AddStreamerFragment())
+            val transaction = parentFragmentManager.beginTransaction().add(R.id.nav_host_fragment_content_main, AddStreamerFragment(listController))
             transaction.hide(this)
             transaction.addToBackStack(null)
             transaction.commit()

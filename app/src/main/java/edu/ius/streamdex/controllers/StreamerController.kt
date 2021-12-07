@@ -4,27 +4,49 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.ListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
+import edu.ius.streamdex.models.FavoriteStreamers
 import edu.ius.streamdex.models.Streamer
 import edu.ius.streamdex.storage.StreamerRepository
 import edu.ius.streamdex.ui.streamers.FavoriteStreamerRecyclerViewAdapter
+import kotlinx.coroutines.*
+import java.util.function.UnaryOperator
 
-class StreamerController {
+class StreamerController (owner: LifecycleOwner) {
 
-    var streamerList = MutableLiveData<List<Streamer>>()
+    val owner = owner
+    var streamerList = MutableLiveData<MutableList<Streamer>>()
 
     fun populateLiveStreamers(owner: LifecycleOwner) {
         StreamerRepository.get().getStreamers().observe(owner, {streamers ->
             if (streamers != null) {
-                streamerList.value = streamers
+                val newList = mutableListOf<Streamer>()
+                newList.addAll(streamers)
+                streamerList.postValue(newList)
             }
         })
     }
 
-    suspend fun addFavoriteStreamers(streamers: List<Streamer>) {
+    fun addStreamer(streamer: Streamer) {
+        val job = Job()
+        val scope = CoroutineScope(Dispatchers.Main + job)
+
+        scope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
+                storeNewStreamer(streamer)
+            }
+        }
+        val newList = mutableListOf<Streamer>()
+        newList.addAll(streamerList.value!!)
+        newList.add(streamer)
+        streamerList.postValue(newList)
+
+    }
+
+    private suspend fun storeNewStreamers(streamers: List<Streamer>) {
         StreamerRepository.get().addStreamers(streamers)
     }
 
-    suspend fun addFavoriteStreamers(streamer: Streamer) {
+    private suspend fun storeNewStreamer(streamer: Streamer) {
         StreamerRepository.get().addStreamers(streamer)
     }
 
