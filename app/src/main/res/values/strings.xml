@@ -3,4 +3,9 @@
     <string name="live_status_default">Error</string>
     <string name="stream_title_default">Unable to load stream title</string>
     <string name="streamer_name_default">Unable to load streamer name</string>
+    <string name="menu_home">Home</string>
+    <string name="streamer_list">Streamers</string>
+    <string name="add_streamers">You have not added any streamers to track yet!</string>
+    <string name="add_streamer_prompt">Please enter the link to the streamer\'s channel</string>
+    <string name="finish">Finish</string>
 </resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/fragment_home">
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="edu.ius.streamdex.ui.home.StreamFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_stream_list" />
+
+    <fragment
+        android:id="@+id/fragment_streamers"
+        android:name="edu.ius.streamdex.ui.streamers.FavoriteStreamerFragment"
+        android:label="@string/streamer_list"
+        tools:layout="@layout/fragment_streamer_list" />
+
+</navigation>

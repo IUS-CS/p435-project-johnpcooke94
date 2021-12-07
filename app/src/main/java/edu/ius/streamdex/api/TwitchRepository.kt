@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 const val TAG = "STREAM_REPO"
 
-class StreamRepository {
+class TwitchRepository {
 
     private class AuthInterceptor(clientId: String, authToken: String): Interceptor {
 
@@ -70,7 +70,7 @@ class StreamRepository {
                     response: retrofit2.Response<StreamResponse>
                 ) {
                     if (!response.isSuccessful) {
-                        Log.e(TAG, "Twitch API response error: ${response.body()}")
+                        Log.e(TAG, "Twitch API response error ${response.code()}: ${response.errorBody()}")
                         ret.postValue(null)
                     }
                     val streamList = response.body()
@@ -78,6 +78,33 @@ class StreamRepository {
                 }
 
                 override fun onFailure(call: Call<StreamResponse>, t: Throwable) {
+                    Log.e(TAG, "Unable to reach Twitch API")
+                    Log.e(TAG, t.localizedMessage)
+                }
+
+            })
+
+            return ret
+        }
+
+        fun getStreamers(username: String): MutableLiveData<StreamerResponse> {
+            val ret = MutableLiveData<StreamerResponse>()
+
+            api.getUser(username).enqueue(object: Callback<StreamerResponse> {
+
+                override fun onResponse(
+                    call: Call<StreamerResponse>,
+                    response: retrofit2.Response<StreamerResponse>
+                ) {
+                    if (!response.isSuccessful) {
+                        Log.e(TAG, "Twitch API response error ${response.code()}: ${response.errorBody()}")
+                        ret.postValue(null)
+                    }
+                    val streamerList = response.body()
+                    ret.postValue(streamerList)
+                }
+
+                override fun onFailure(call: Call<StreamerResponse>, t: Throwable) {
                     Log.e(TAG, "Unable to reach Twitch API")
                     Log.e(TAG, t.localizedMessage)
                 }

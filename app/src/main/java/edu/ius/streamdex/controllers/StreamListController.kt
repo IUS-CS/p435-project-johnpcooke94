@@ -2,8 +2,8 @@ package edu.ius.streamdex.controllers
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import edu.ius.streamdex.StreamRecyclerViewAdapter
-import edu.ius.streamdex.api.StreamRepository
+import edu.ius.streamdex.ui.home.StreamRecyclerViewAdapter
+import edu.ius.streamdex.api.TwitchRepository
 import edu.ius.streamdex.api.TwitchStream
 import edu.ius.streamdex.models.Stream
 
@@ -15,7 +15,7 @@ class StreamListController {
     fun populateLiveStreams(owner: LifecycleOwner, view: RecyclerView) {
         streamList = mutableListOf()
         streamResponse = mutableListOf()
-        StreamRepository.getStreams().observe(owner, { streams ->
+        TwitchRepository.getStreams().observe(owner, { streams ->
             streamResponse.addAll(streams.data)
             transferResponseToList()
             view.adapter = StreamRecyclerViewAdapter(streamList)

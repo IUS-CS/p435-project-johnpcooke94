@@ -1,4 +1,4 @@
-package edu.ius.streamdex
+package edu.ius.streamdex.ui.home
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater

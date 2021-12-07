@@ -1,5 +1,12 @@
 package edu.ius.streamdex.models
 
-data class Streamer(var name: String, var channelLink: String, var currentlyLive: Boolean, var currentStream: String) {
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-}
+@Entity(tableName = "streamers")
+data class Streamer(
+    @PrimaryKey var name: String,
+    var channelLink: String,
+    var currentlyLive: Boolean,
+    var currentStream: String
+    )
