@@ -33,7 +33,7 @@ class AddStreamerFragment(streamerController: StreamerController) : Fragment() {
                     var found = false
                     twitchUsers.data.forEach {
                         if (it.display_name.contentEquals(usernameInput, true)) {
-                            controller.addStreamer(Streamer(it.display_name, "", it.is_live, it.title))
+                            controller.addStreamer(Streamer(it.display_name, it.id, "", it.is_live, it.title))
                             found = true
                             parentFragmentManager.popBackStack()
                         }

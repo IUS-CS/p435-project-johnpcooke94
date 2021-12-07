@@ -2,7 +2,7 @@ package edu.ius.streamdex.models
 
 import java.lang.RuntimeException
 
-class CurrentLiveStreamers {
+class CurrentLiveStreamers private constructor() {
     private val _liveStreamers: MutableList<Streamer> = mutableListOf()
     val liveStreamers: MutableList<Streamer>
         get() {
@@ -27,5 +27,26 @@ class CurrentLiveStreamers {
 
     fun clearAllStreamers() {
         _liveStreamers.clear()
+    }
+
+    companion object {
+        private var INSTANCE: CurrentLiveStreamers? = null
+
+        fun initialize() {
+            if (INSTANCE == null) {
+                INSTANCE = CurrentLiveStreamers()
+            }
+        }
+
+        fun get(): CurrentLiveStreamers {
+            if (INSTANCE == null) {
+                initialize()
+                return INSTANCE!!
+            }
+            else {
+                return INSTANCE!!
+            }
+        }
+
     }
 }

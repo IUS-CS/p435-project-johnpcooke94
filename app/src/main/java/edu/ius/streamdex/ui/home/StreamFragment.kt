@@ -17,7 +17,7 @@ import edu.ius.streamdex.controllers.StreamListController
 class StreamFragment : Fragment() {
 
     private var columnCount = 1
-    private val listController = StreamListController()
+    private val listController = StreamListController(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,8 +1,6 @@
 package edu.ius.streamdex.models
 
-import android.util.Log
-
-class FavoriteStreamers {
+class FavoriteStreamers private constructor(){
     private val _favoriteStreamers: MutableList<Streamer> = mutableListOf()
     val favoriteStreamers: MutableList<Streamer>
         get() {

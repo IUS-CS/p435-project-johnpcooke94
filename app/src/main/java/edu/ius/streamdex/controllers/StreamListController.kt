@@ -5,10 +5,13 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.ius.streamdex.ui.home.StreamRecyclerViewAdapter
 import edu.ius.streamdex.api.TwitchRepository
 import edu.ius.streamdex.api.TwitchStream
+import edu.ius.streamdex.models.FavoriteStreamers
 import edu.ius.streamdex.models.Stream
 
-class StreamListController {
+class StreamListController(owner: LifecycleOwner) {
 
+    val streamerController = StreamerController(owner)
+    val owner = owner
     var streamList = mutableListOf<Stream>()
     private var streamResponse = mutableListOf<TwitchStream>()
 
