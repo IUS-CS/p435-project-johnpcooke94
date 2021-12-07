@@ -8,10 +8,9 @@ import edu.ius.streamdex.models.Streamer
 import edu.ius.streamdex.storage.StreamerRepository
 import kotlinx.coroutines.*
 
-class StreamerController (owner: LifecycleOwner) {
+class StreamerController (val owner: LifecycleOwner) {
 
-    val owner = owner
-    val model = FavoriteStreamers.get()
+    private val model = FavoriteStreamers.get()
     var streamerList = MutableLiveData<MutableList<Streamer>>()
 
     init {

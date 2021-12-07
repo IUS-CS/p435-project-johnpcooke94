@@ -60,10 +60,10 @@ class TwitchRepository {
 
         private val api = retrofit.create(TwitchService::class.java)
 
-        fun getStreams(): MutableLiveData<StreamResponse> {
+        fun getStreams(ids: List<Int>): MutableLiveData<StreamResponse> {
             val ret = MutableLiveData<StreamResponse>()
 
-            api.getStream(null).enqueue(object: Callback<StreamResponse> {
+            api.getStream(ids).enqueue(object: Callback<StreamResponse> {
 
                 override fun onResponse(
                     call: Call<StreamResponse>,
