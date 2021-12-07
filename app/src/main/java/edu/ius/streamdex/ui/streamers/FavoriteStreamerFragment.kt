@@ -26,20 +26,11 @@ class FavoriteStreamerFragment : Fragment() {
     private var adapter = FavoriteStreamerRecyclerViewAdapter(emptyList())
     private lateinit var streamerRecyclerView: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val owner = this
         var view: View = inflater.inflate(R.layout.fragment_streamer_list, container, false)
 
         streamerRecyclerView = view.findViewById(R.id.streamer_recycler)
@@ -72,20 +63,5 @@ class FavoriteStreamerFragment : Fragment() {
     fun updateUI(streamers: List<Streamer>) {
         adapter = FavoriteStreamerRecyclerViewAdapter(streamers)
         streamerRecyclerView.adapter = adapter
-    }
-
-    companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            FavoriteStreamerFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
     }
 }

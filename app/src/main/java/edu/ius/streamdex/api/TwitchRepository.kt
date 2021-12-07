@@ -11,7 +11,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.RuntimeException
 
 const val TAG = "STREAM_REPO"
 

@@ -2,14 +2,9 @@ package edu.ius.streamdex.controllers
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.recyclerview.widget.ListUpdateCallback
-import androidx.recyclerview.widget.RecyclerView
-import edu.ius.streamdex.models.FavoriteStreamers
 import edu.ius.streamdex.models.Streamer
 import edu.ius.streamdex.storage.StreamerRepository
-import edu.ius.streamdex.ui.streamers.FavoriteStreamerRecyclerViewAdapter
 import kotlinx.coroutines.*
-import java.util.function.UnaryOperator
 
 class StreamerController (owner: LifecycleOwner) {
 
@@ -44,10 +39,6 @@ class StreamerController (owner: LifecycleOwner) {
         newList.add(streamer)
         streamerList.postValue(newList)
 
-    }
-
-    private suspend fun storeNewStreamers(streamers: List<Streamer>) {
-        StreamerRepository.get().addStreamers(streamers)
     }
 
     private suspend fun storeNewStreamer(streamer: Streamer) {
