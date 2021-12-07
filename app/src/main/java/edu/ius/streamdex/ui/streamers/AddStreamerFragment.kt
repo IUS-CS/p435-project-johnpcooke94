@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import edu.ius.streamdex.R
 import edu.ius.streamdex.api.StreamerResponse
@@ -53,22 +54,33 @@ class AddStreamerFragment(streamerController: StreamerController) : Fragment() {
             val usernameInput = view.findViewById<EditText>(R.id.editText).text
             TwitchRepository.getStreamers(usernameInput.toString()).observe(viewLifecycleOwner, {twitchUsers ->
                 if (twitchUsers != null && twitchUsers.data.isNotEmpty()) {
+                    var found = false
                     twitchUsers.data.forEach {
                         if (it.display_name.contentEquals(usernameInput, true)) {
                             controller.addStreamer(Streamer(it.display_name, "", it.is_live, it.title))
+                            found = true
                             parentFragmentManager.popBackStack()
                         }
                     }
+                    if (!found) {
+                        displayStreamerNotFound()
+                    }
                 }
                 else {
-                    Snackbar.make(view, "Could not find that Twitch user, check the name and try again",
-                        Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()
+                    displayStreamerNotFound()
                 }
             })
         }
 
         return view
+    }
+
+    private fun displayStreamerNotFound() {
+        Toast.makeText(
+            this.context,
+            "Could not find that Twitch streamer, check the name and try again",
+            Toast.LENGTH_LONG)
+            .show()
     }
 
 /*    companion object {

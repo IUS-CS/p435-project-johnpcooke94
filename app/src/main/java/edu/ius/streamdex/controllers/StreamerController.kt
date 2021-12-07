@@ -16,7 +16,11 @@ class StreamerController (owner: LifecycleOwner) {
     val owner = owner
     var streamerList = MutableLiveData<MutableList<Streamer>>()
 
-    fun populateLiveStreamers(owner: LifecycleOwner) {
+    init {
+        populateLiveStreamers()
+    }
+
+    private fun populateLiveStreamers() {
         StreamerRepository.get().getStreamers().observe(owner, {streamers ->
             if (streamers != null) {
                 val newList = mutableListOf<Streamer>()

@@ -43,7 +43,6 @@ class FavoriteStreamerFragment : Fragment() {
         var view: View = inflater.inflate(R.layout.fragment_streamer_list, container, false)
 
         streamerRecyclerView = view.findViewById(R.id.streamer_recycler)
-        listController.populateLiveStreamers(owner)
 
         val addButton = view.findViewById<FloatingActionButton>(R.id.add_streamer_button)
         addButton.setOnClickListener {
