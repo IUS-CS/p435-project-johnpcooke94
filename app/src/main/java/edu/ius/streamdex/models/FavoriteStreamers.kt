@@ -1,6 +1,6 @@
 package edu.ius.streamdex.models
 
-class FavoriteStreamers {
+class FavoriteStreamers private constructor(){
     private val _favoriteStreamers: MutableList<Streamer> = mutableListOf()
     val favoriteStreamers: MutableList<Streamer>
         get() {
@@ -22,6 +22,27 @@ class FavoriteStreamers {
 
     fun clearAllStreamers() {
         _favoriteStreamers.clear()
+    }
+
+    companion object {
+        private var INSTANCE: FavoriteStreamers? = null
+
+        fun initialize() {
+            if (INSTANCE == null) {
+                INSTANCE = FavoriteStreamers()
+            }
+        }
+
+        fun get(): FavoriteStreamers {
+            if (INSTANCE == null) {
+                initialize()
+                return INSTANCE!!
+            }
+            else {
+                return INSTANCE!!
+            }
+        }
+
     }
 
 }

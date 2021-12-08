@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import edu.ius.streamdex.R
 import edu.ius.streamdex.controllers.StreamListController
 
@@ -17,7 +18,9 @@ import edu.ius.streamdex.controllers.StreamListController
 class StreamFragment : Fragment() {
 
     private var columnCount = 1
-    private val listController = StreamListController()
+    private val listController = StreamListController(this)
+    private lateinit var streamView: View
+    private lateinit var streamRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,20 +34,23 @@ class StreamFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_stream_list, container, false)
-        val owner = this
+        streamView = inflater.inflate(R.layout.fragment_stream_list, container, false)
+        streamRecyclerView = streamView.findViewById(R.id.list)
 
         // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                listController.populateLiveStreams(owner, this)
+        with(streamRecyclerView) {
+            layoutManager = when {
+                columnCount <= 1 -> LinearLayoutManager(context)
+                else -> GridLayoutManager(context, columnCount)
             }
+            listController.populateLiveStreams(streamView, streamRecyclerView)
         }
-        return view
+        return streamView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listController.updateUI(streamView, streamRecyclerView)
     }
 
     companion object {

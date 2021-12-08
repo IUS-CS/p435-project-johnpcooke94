@@ -25,19 +25,21 @@ class FavoriteStreamerRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.name
-        holder.contentView.text = item.currentStream
+        if (item.currentlyLive) holder.liveView.text = "LIVE!" else holder.liveView.text = "Offline"
+        holder.lastLiveTitle.text = item.currentStream
+        holder.nameView.text = item.name
     }
 
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(binding: FragmentStreamerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
+        val liveView: TextView = binding.liveStatus
+        val nameView: TextView = binding.streamerName
+        val lastLiveTitle: TextView = binding.streamTitle
 
         override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+            return super.toString() + " '" + nameView.text + "'"
         }
     }
 

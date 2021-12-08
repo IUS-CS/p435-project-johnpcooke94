@@ -53,14 +53,14 @@ class FavoriteStreamerFragment : Fragment() {
         listController.streamerList.observe(viewLifecycleOwner) {streamers ->
             if (streamers.isNotEmpty()) {
                 updateUI(streamers)
-                textView.text = ""
+                textView.visibility = View.INVISIBLE
                 Log.d(TAG, "Streamers found in DB")
                 Log.d(TAG, streamers.toString())
             }
         }
     }
 
-    fun updateUI(streamers: List<Streamer>) {
+    private fun updateUI(streamers: List<Streamer>) {
         adapter = FavoriteStreamerRecyclerViewAdapter(streamers)
         streamerRecyclerView.adapter = adapter
     }

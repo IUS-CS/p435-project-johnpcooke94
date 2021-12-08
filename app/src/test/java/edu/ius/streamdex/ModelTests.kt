@@ -9,8 +9,8 @@ import java.lang.RuntimeException
 
 class ModelTests {
 
-    private val favoriteStreamers = FavoriteStreamers()
-    private val liveStreamers = CurrentLiveStreamers()
+    private val favoriteStreamers = FavoriteStreamers.get()
+    private val liveStreamers = CurrentLiveStreamers.get()
 
     // All lists should be empty at this point
     @Test
@@ -23,10 +23,11 @@ class ModelTests {
     fun testAddFavoriteStreamer() {
         favoriteStreamers.clearAllStreamers()
         val newStreamer = Streamer(
-            "xx_test_xx",
-            "www.youtube.com/test",
+            "test",
+            100,
+            "twitch.tv",
             false,
-            ""
+            "test stream"
         )
         favoriteStreamers.addStreamer(newStreamer)
         assertTrue(favoriteStreamers.favoriteStreamers == mutableListOf(newStreamer))
@@ -38,18 +39,20 @@ class ModelTests {
         val newStreamers = mutableListOf<Streamer>()
         newStreamers.add(
             Streamer(
-                "xx_test_xx",
-                "www.youtube.com/test",
+                "test",
+                100,
+                "twitch.tv",
                 false,
-                ""
+                "test stream"
             )
         )
         newStreamers.add(
             Streamer(
-                "xx_test2_xx",
-                "www.youtube.com/test2",
+                "test2",
+                101,
+                "twitch.tv/streamer2",
                 true,
-                "trying out Valorant XD"
+                "test stream2"
             )
         )
 
@@ -59,11 +62,13 @@ class ModelTests {
 
     @Test
     fun testAddLiveStreamer() {
+        liveStreamers.clearAllStreamers()
         val newStreamer = Streamer(
-            "xx_test_xx",
-            "www.youtube.com/test",
+            "test",
+            100,
+            "twitch.tv",
             true,
-            "trying out Valorant XD"
+            "test stream"
         )
         liveStreamers.addStreamer(newStreamer)
         assertTrue(liveStreamers.liveStreamers == mutableListOf(newStreamer))
@@ -80,18 +85,20 @@ class ModelTests {
         val newStreamers = mutableListOf<Streamer>()
         newStreamers.add(
             Streamer(
-                "xx_test_xx",
-                "www.youtube.com/test",
+                "test",
+                100,
+                "twitch.tv",
                 false,
-                ""
+                "test stream"
             )
         )
         newStreamers.add(
             Streamer(
-                "xx_test2_xx",
-                "www.youtube.com/test2",
+                "test2",
+                101,
+                "twitch.tv/streamer2",
                 true,
-                "trying out Valorant XD"
+                "test stream2"
             )
         )
 
@@ -104,20 +111,22 @@ class ModelTests {
         if (favoriteStreamers.favoriteStreamers == mutableListOf<Streamer>()) {
             favoriteStreamers.addStreamer(
                 Streamer(
-                    "xx_test2_xx",
-                    "www.youtube.com/test2",
+                    "test2",
+                    101,
+                    "twitch.tv/streamer2",
                     true,
-                    "trying out Valorant XD"
+                    "test stream2"
                 )
             )
         }
         if (liveStreamers.liveStreamers == mutableListOf<Streamer>()) {
             liveStreamers.addStreamer(
                 Streamer(
-                    "xx_test2_xx",
-                    "www.youtube.com/test2",
+                    "test2",
+                    101,
+                    "twitch.tv/streamer2",
                     true,
-                    "trying out Valorant XD"
+                    "test stream2"
                 )
             )
         }
