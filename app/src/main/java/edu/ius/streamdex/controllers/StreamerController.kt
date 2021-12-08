@@ -3,7 +3,9 @@ package edu.ius.streamdex.controllers
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.observe
+import edu.ius.streamdex.api.TwitchRepository
 import edu.ius.streamdex.models.FavoriteStreamers
+import edu.ius.streamdex.models.Stream
 import edu.ius.streamdex.models.Streamer
 import edu.ius.streamdex.storage.StreamerRepository
 import kotlinx.coroutines.*
@@ -26,9 +28,24 @@ class StreamerController (val owner: LifecycleOwner) {
     private fun populateLiveStreamers() {
         StreamerRepository.get().getStreamers().observe(owner, {streamers ->
             if (streamers != null) {
-                val newList = mutableListOf<Streamer>()
+                var newList = mutableListOf<Streamer>()
                 newList.addAll(streamers)
                 streamerList.postValue(newList)
+
+                val idList = mutableListOf<Int>()
+                streamers.forEach { idList.add(it.twitchId) }
+                TwitchRepository.getStreamers(idList).observe(owner) { response ->
+                    if (response != null && response.data.isNotEmpty()) {
+                        newList = mutableListOf()
+                        response.data.forEach {
+                            if (idList.contains(it.id)) {
+                                newList.add(Streamer(it.display_name, it.id, "", it.is_live, it.title))
+                            }
+                        }
+                        streamerList.postValue(newList)
+                        updateStreamersInStorage(newList)
+                    }
+                }
             }
         })
     }
@@ -49,7 +66,23 @@ class StreamerController (val owner: LifecycleOwner) {
 
     }
 
+    fun updateStreamersInStorage(streamers: List<Streamer>) {
+        val job = Job()
+        val scope = CoroutineScope(Dispatchers.Main + job)
+
+        scope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
+                storeNewStreamer(streamers)
+            }
+        }
+
+    }
+
     private suspend fun storeNewStreamer(streamer: Streamer) {
+        StreamerRepository.get().addStreamers(streamer)
+    }
+
+    private suspend fun storeNewStreamer(streamer: List<Streamer>) {
         StreamerRepository.get().addStreamers(streamer)
     }
 

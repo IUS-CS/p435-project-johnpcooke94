@@ -9,5 +9,5 @@ data class Streamer(
     var twitchId: Int,
     var channelLink: String,
     var currentlyLive: Boolean,
-    var currentStream: String
+    var currentStream: String?
     )

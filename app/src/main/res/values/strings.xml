@@ -8,4 +8,6 @@
     <string name="add_streamers">You have not added any streamers to track yet!</string>
     <string name="add_streamer_prompt">Please enter the link to the streamer\'s channel</string>
     <string name="finish">Finish</string>
+    <string name="no_favorite_streamers">You have not added any favorite streamers to track yet. Tap the hamburger menu at the top left to add favorite streamers.</string>
+    <string name="no_one_streaming">None of your favorites are streaming! Check back later or add more favorite streamers.</string>
 </resources>
