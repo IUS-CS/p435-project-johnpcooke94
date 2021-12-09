@@ -5,5 +5,6 @@ data class TwitchStream(
     val user_id: String,
     val user_name: String,
     val type: String,
-    val title: String
+    val title: String,
+    val thumbnail_url: String
 )

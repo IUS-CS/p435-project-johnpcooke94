@@ -17,12 +17,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@id/live_status"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="272dp"
+            android:layout_height="153dp"
+            android:id="@+id/stream_thumbnail"
+            android:src="@drawable/ic_launcher_background"
+            android:layout_weight="2" />
 
         <TextView
             android:id="@+id/stream_title"
@@ -30,7 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:text="@string/stream_title_default"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/streamer_name"
@@ -38,7 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:text="@string/streamer_name_default"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
