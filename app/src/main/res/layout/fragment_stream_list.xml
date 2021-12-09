@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_gravity="center_horizontal">
 
     <TextView
+        android:id="@+id/no_favorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
         android:layout_marginTop="24dp"
-        android:textSize="16dp"
+        android:paddingHorizontal="16dp"
+        android:text="@string/no_favorite_streamers"
         android:textAlignment="center"
+        android:textSize="16dp"
         android:visibility="visible"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/no_favorites"
-        android:text="@string/no_favorite_streamers"/>
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/no_live"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
         android:layout_marginTop="24dp"
+        android:paddingHorizontal="16dp"
         android:text="@string/no_one_streaming"
-        android:textSize="16dp"
         android:textAlignment="center"
+        android:textSize="16dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:name="edu.ius.streamdex.StreamFragment"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
         app:layoutManager="LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
         tools:context=".ui.home.StreamFragment"
         tools:listitem="@layout/fragment_stream" />
 

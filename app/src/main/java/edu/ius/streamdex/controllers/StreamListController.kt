@@ -1,7 +1,5 @@
 package edu.ius.streamdex.controllers
 
-import android.content.Context
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
@@ -10,13 +8,14 @@ import edu.ius.streamdex.R
 import edu.ius.streamdex.ui.home.StreamRecyclerViewAdapter
 import edu.ius.streamdex.api.TwitchRepository
 import edu.ius.streamdex.api.TwitchStream
-import edu.ius.streamdex.models.CurrentLiveStreamers
-import edu.ius.streamdex.models.FavoriteStreamers
 import edu.ius.streamdex.models.Stream
 import edu.ius.streamdex.models.Streamer
-import edu.ius.streamdex.ui.home.StreamFragment
 
-class StreamListController(val owner: LifecycleOwner) {
+class StreamListController(
+    private val owner: LifecycleOwner,
+    private val view: View,
+    private val recyclerView: RecyclerView
+    ) {
 
     private val streamerController = StreamerController(owner)
     var streamList = mutableListOf<Stream>()
@@ -24,11 +23,10 @@ class StreamListController(val owner: LifecycleOwner) {
     var streamersStored = false
     var streamersLive = false
 
-    fun populateLiveStreams(view: View, recyclerView: RecyclerView) {
+    fun populateLiveStreams() {
         streamList = mutableListOf()
         streamResponse = mutableListOf()
         streamerController.streamerList.observe(owner) { streamers ->
-            Log.d("STORAGE_CALLBACK", "hit the storage observer")
             if (streamers != null && streamers.size > 0) {
                 streamersStored = true
                 val liveStreamers: List<Streamer> = streamers.filter {
@@ -45,11 +43,12 @@ class StreamListController(val owner: LifecycleOwner) {
                     })
                 }
             }
-            updateUI(view, recyclerView)
+            updateUI()
+            //downloadThumbnails()
         }
     }
 
-    fun updateUI(view: View, recyclerView: RecyclerView) {
+    fun updateUI() {
         val noFavoritesText = view.findViewById<TextView>(R.id.no_favorites)
         val noOneLiveText = view.findViewById<TextView>(R.id.no_live)
 
@@ -70,9 +69,35 @@ class StreamListController(val owner: LifecycleOwner) {
 
     private fun transferResponseToList() {
         streamResponse.forEach {
-            val newStream = Stream(it.title, it.user_name, null, it.type == "live")
+            val regex = Regex("\\{width\\}x\\{height\\}")
+            val newString = it.thumbnail_url.replace(regex, "272x153")
+            val newStream = Stream(
+                it.title,
+                it.user_name,
+                null,
+                it.type == "live",
+                newString
+            )
             streamList.add(newStream)
         }
     }
+
+/*    fun downloadThumbnails() {
+        val imageLoader = ImageLoader.getInstance()
+        streamList.forEach { stream ->
+            imageLoader.loadImage(stream.thumbnailUrl, object: SimpleImageLoadingListener() {
+                override fun onLoadingComplete(
+                    imageUri: String?,
+                    view: View?,
+                    loadedImage: Bitmap?
+                ) {
+                    if (loadedImage != null) {
+                        stream.thumbnailBmp = loadedImage
+                        updateUI()
+                    }
+                }
+            })
+        }
+    }*/
 
 }
