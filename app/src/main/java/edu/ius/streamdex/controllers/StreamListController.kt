@@ -1,14 +1,9 @@
 package edu.ius.streamdex.controllers
 
-import android.graphics.Bitmap
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.nostra13.universalimageloader.core.ImageLoader
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener
 import edu.ius.streamdex.R
 import edu.ius.streamdex.ui.home.StreamRecyclerViewAdapter
 import edu.ius.streamdex.api.TwitchRepository
@@ -17,9 +12,9 @@ import edu.ius.streamdex.models.Stream
 import edu.ius.streamdex.models.Streamer
 
 class StreamListController(
-    val owner: LifecycleOwner,
-    val view: View,
-    val recyclerView: RecyclerView
+    private val owner: LifecycleOwner,
+    private val view: View,
+    private val recyclerView: RecyclerView
     ) {
 
     private val streamerController = StreamerController(owner)

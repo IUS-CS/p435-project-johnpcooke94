@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal">
 
     <TextView
         android:id="@+id/no_favorites"
@@ -38,13 +39,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:name="edu.ius.streamdex.StreamFragment"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         tools:context=".ui.home.StreamFragment"
         tools:listitem="@layout/fragment_stream" />
